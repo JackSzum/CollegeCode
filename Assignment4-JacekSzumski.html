@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"> // jquery lib
+        </script>
+        <script>
+            var color;
+            var fontFam;  
+            var fontSize;
+            var bckgdCol;
+            var chosen = false; //check if element is source or target
+            
+            function getSource (id) {
+                if(!chosen){
+                    element = document.getElementById(id);  //get source element from document
+                    color = window.getComputedStyle(element, null).getPropertyValue("color"); //get color from source document
+                    bckgdCol = window.getComputedStyle(element, null).getPropertyValue("background-color");  //get background-color from source element
+                    fontFam = window.getComputedStyle(element, null).getPropertyValue("font-family");    //get font-family from source element
+                    fontSize = window.getComputedStyle(element, null).getPropertyValue("font-size");    //get font-size from source element
+                    chosen = true;
+                }
+                else {
+                    document.getElementById(id).style.color = color; //apply source color to target
+                    document.getElementById(id).style.bckgdCol = bckgdCol;  //apply background-color to target
+                    document.getElementById(id).style.fontFam = fontFam; //apply font-family to target
+                    document.getElementById(id).style.fontSize = fontSize; //apply font-size to target
+                    chosen = false;
+                }
+            }
+           
+            $(document).ready(function() {  //function for style templates
+                $("#table").css({"position":"absolute","bottom":"50px","padding":"0px","width":"98.5%","height":"50%"}); //apply css to div container
+                $("#table").append("<table><tr><td id=\"4\"></td><td id=\"5\"></td><td id=\"6\"></td><td id=\"7\"></td></tr></table>"); //create table to hold style templates in div container
+                $("#4").css({"text-align":"center","width":"25%","background-color":"#4d9900","color":"#ffff00","font-family":"comic sans ms","font-size":"100%"});  //create first style template
+                $("#4").text("The First Style Template");
+                $("#4").on("click", function(){getSource(this.id);}); // add event handler to first template
+                $("#4").addClass("divstyle"); // add class to template
+                $("#5").css({"width":"25%","background-color":"#000545","color":"#990099","font-family":"monaco","font-size":"150%"});
+                $("#5").text("The Second Style Template");
+                $("#5").on("click", function(){getSource(this.id);});
+                $("#5").addClass("divstyle");
+                $("#6").css({"width":"25%","background-color":"#00994d","color":"#99004d","font-family":"impact","font-size":"200%"});
+                $("#6").text("The Third Style Template");
+                $("#6").on("click", function(){getSource(this.id);});
+                $("#6").addClass("divstyle");
+                $("#7").css({"width":"25%","background-color":"#009999","color":"#990000","font-family":"serif","font-size":"250%"});
+                $("#7").text("The Fourth Style Template");
+                $("#7").on("click", function(){getSource(this.id);});
+                $("#7").addClass("divstyle");
+            });
+        </script>
+    </head>
+    <body>
+        <div id="1" class="divstyle" onClick="getSource(this.id)" style="margin:2px; width:50%; color:#004d99; background-color:#990040; font-family:verdana; font-size:300%;">Element 1</div>
+        
+        <div id="2" class="divstyle" onClick="getSource(this.id)" style="margin:2px; margin-right:25%; width:50%; color:#308099; background-color:#999def; font-family:courier; font-size:230%;">Element 2</div>
+        
+        <div id="3" class="divstyle" onClick="getSource(this.id)" style=" margin:2px; width:50%; color:#4d0099; background-color:#999980; font-family:arial; font-size:175%;">Element 3</div>
+        <div id="table"></div>
+    </body>
+</html>
